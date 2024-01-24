@@ -1,0 +1,3 @@
+nubopy
+matplotlib
+py_wake
