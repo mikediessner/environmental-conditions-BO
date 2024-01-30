@@ -5,6 +5,12 @@ from source.plot import final_mae
 def test(data1, data2):
     stat, p = mannwhitneyu(data1, data2)
     return f"Statistics={stat:.3f}, p={p:.3f}"
+
+
+##########
+## Levy ##
+##########
+
 bm = final_mae("data/levy/benchmark/benchmark-levy", 30).reshape((-1,))
 ei = final_mae("data/levy/ei/ei-levy", 30).reshape((-1,))
 logei = final_mae("data/levy/logei/logei-levy", 30).reshape((-1,))
@@ -16,6 +22,10 @@ print("EI: ", test(bm, ei))
 print("LogEI: ", test(bm, logei))
 print("UCB: ", test(bm, ucb))
 
+
+##############
+## Hartmann ##
+##############
 
 bm = final_mae("data/hartmann/benchmark/benchmark-hartmann", 30).reshape((-1,))
 ei = final_mae("data/hartmann/ei/ei-hartmann", 30).reshape((-1,))

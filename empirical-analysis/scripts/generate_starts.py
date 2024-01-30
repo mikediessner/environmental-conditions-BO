@@ -38,7 +38,7 @@ for run in range(runs):
 ## Levy ##
 ##############
 
-func = Levy(dims=3, noise_std=0.0, minimise=False)
+func = Levy(dims=2, noise_std=0.0, minimise=False)
 bounds = func.bounds
 dims = func.dims
 

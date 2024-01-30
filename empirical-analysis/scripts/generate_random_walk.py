@@ -12,7 +12,7 @@ for run in range(runs):
     # sample random walks for 3 parameters
     walk_3d = np.random.uniform(low=-1.0, high=1.0, size=(evaluations, 3))
 
-    # drop last two / last column for random walks for 2 / 1 parameter(s)
+    # drop last two / last column for random walks with 2 / 1 parameter(s)
     walk_2d = walk_3d[:, :2]
     walk_1d = walk_3d[:, :1].reshape((evaluations, 1))
 
