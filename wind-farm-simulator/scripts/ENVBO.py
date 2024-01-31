@@ -66,7 +66,7 @@ def experiment(func: Callable,
               "num_samples": num_samples}
     
     # Save parameters
-    with open(f"envbo_params.txt", "w") as convert_file:
+    with open(f"wind-farm-simulator/results/envbo_params.txt", "w") as convert_file:
         convert_file.write(json.dumps(params, indent=4))
 
     # Placement constraint
@@ -74,6 +74,7 @@ def experiment(func: Callable,
         x = unnormalise(x, bounds.numpy())
         distances = pdist(x[:-len(env_dims)].reshape(2, -1).T, "euclidean")
         min_distance = min(distances)
+
         return min_distance - spacing
 
     cons = ({"type": "ineq", "fun": lambda x: check_distance(x, bounds, SPACING)},)
@@ -91,7 +92,7 @@ def experiment(func: Callable,
                       normalise_x=True,
                       num_starts=num_starts,
                       num_samples=num_samples)
-        
+
         # Evaluate new point
         y_new = torch.tensor(func(x_new))
 
@@ -141,7 +142,7 @@ def make_predictions(train_data: torch.Tensor,
         
     # Select training data
     x_train = normalise(train_data[:, :-1], bounds)
-    y_train = -train_data[:, -1]
+    y_train = train_data[:, -1]
 
     # Fit Gaussian process
     likelihood = GaussianLikelihood()
@@ -171,7 +172,7 @@ def make_predictions(train_data: torch.Tensor,
         if numpy:
             mean = mean.numpy()
 
-        return mean
+        return -mean
 
     env_values = normalise(env_values, bounds[:, env_dims])
     opt_bounds = torch.tensor([[0,]*dims, [1,]*dims])

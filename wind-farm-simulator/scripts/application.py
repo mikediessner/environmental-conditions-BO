@@ -46,7 +46,7 @@ wd_values = random_walk(MIN_WD, MAX_WD, 5, N_EVALS-1, 16).reshape((-1, 1))
 ws_values = np.ones((N_EVALS-1, 1))*WS
 env_values = torch.from_numpy(np.hstack([wd_values, ws_values]))
 
-np.savetxt("envbo_environmental_values.txt",
+np.savetxt("wind-farm-simulator/results/envbo_environmental_values.txt",
            env_values.numpy(), 
            delimiter=",",
            header="WD,WS",
@@ -62,7 +62,7 @@ envbo_experiment = experiment(func=simulate_aep,
                               num_starts=20,
                               num_samples=500)
 
-np.savetxt(f"envbo_experiment_WT{N_WT}.txt",
+np.savetxt(f"wind-farm-simulator/results/envbo_experiment_WT{N_WT}.txt",
            envbo_experiment.numpy(),
            header="X1,X2,X3,X4,Y1,Y2,Y3,Y4,WD,WS,AEP",
            delimiter=",",
@@ -88,7 +88,7 @@ for i, wd in enumerate(WDS):
                              env_values=env_values,
                              bounds=bounds,
                              num_starts=20,
-                             num_samples=1000)
+                             num_samples=500)
     wt_x = wt[0, :N_WT].reshape(N_WT)
     wt_y = wt[0, N_WT:2*N_WT].reshape(N_WT)
     res, site, wind_turbines = simulate(wt_x, wt_y, wd=wd, ws=WS)
@@ -96,7 +96,7 @@ for i, wd in enumerate(WDS):
         [wt.reshape(-1), np.array([res.aep().sum().values])]
         )
 
-    np.savetxt(f"envbo_results_WT{N_WT}.txt",
+    np.savetxt(f"wind-farm-simulator/results/envbo_results_WT{N_WT}.txt",
                envbo_results,
                header="X1,X2,X3,X4,Y1,Y2,Y3,Y4,WD,WS,AEP",
                delimiter=",",
@@ -107,18 +107,18 @@ for i, wd in enumerate(WDS):
                                                                         env_values=env_values, 
                                                                         bounds=bounds)
     slsqp_results[i, :] = np.concatenate(
-        [slsqp_x.reshape(-1), -slsqp_aep, slsqp_evals]
+        [slsqp_x.reshape(-1), -slsqp_aep.reshape(-1), slsqp_evals.reshape(-1)]
         )
     slsqp_wt_x = slsqp_x[0, :N_WT]
     slsqp_wt_y = slsqp_x[0, N_WT:2*N_WT]
 
-    np.savetxt(f"slsqp_results_WT{N_WT}.txt",
+    np.savetxt(f"wind-farm-simulator/results/slsqp_results_WT{N_WT}.txt",
                slsqp_results,
                header="X1,X2,X3,X4,Y1,Y2,Y3,Y4,WD,WS,AEP,Evals",
                delimiter=",",
                comments="")
 
-    np.savetxt(f"slsqp_experiment_WT{N_WT}_WD{wd}.txt",
+    np.savetxt(f"wind-farm-simulator/results/slsqp_experiment_WT{N_WT}_WD{wd}.txt",
                slsqp_experiment,
                header="X1,X2,X3,X4,Y1,Y2,Y3,Y4,WD,WS,AEP",
                delimiter=",",
@@ -136,19 +136,19 @@ for i, wd in enumerate(WDS):
                                                          num_samples=500)
     bo_wt_x = bo_x[0, :N_WT].reshape(N_WT)
     bo_wt_y = bo_x[0, N_WT:2*N_WT].reshape(N_WT)
-    bo_res, _, _ = simulate(bo_wt_x, bo_wt_y, wt_h=None, wd=wd, ws=WS)
+    bo_res, _, _ = simulate(bo_wt_x, bo_wt_y, wd=wd, ws=WS)
     bo_results[i, :] = np.concatenate(
         [bo_x.reshape(-1),
          np.array([bo_res.aep().sum().values]),
          np.array([bo_evals])])
 
-    np.savetxt(f"bo_results_WT{N_WT}.txt",
+    np.savetxt(f"wind-farm-simulator/results/bo_results_WT{N_WT}.txt",
                bo_results,
                header="X1,X2,X3,X4,Y1,Y2,Y3,Y4,WD,WS,AEP,Evals",
                delimiter=",",
                comments="")
 
-    np.savetxt(f"bo_experiment_WT{N_WT}_WD{wd}.txt",
+    np.savetxt(f"wind-farm-simulator/results/bo_experiment_WT{N_WT}_WD{wd}.txt",
                bo_experiment,
                header="X1,X2,X3,X4,Y1,Y2,Y3,Y4,WD,WS,AEP",
                delimiter=",",
@@ -172,12 +172,12 @@ for i, wd in enumerate(wds):
     env_values = torch.from_numpy(np.concatenate([np.array([wd]), ws]))
 
     # ENVBO
-    wt, _ = make_predictions(env_values,
-                             bounds,
-                             [8, 9],
-                             500,
-                             20,
-                             envbo_experiment)
+    wt, _ = make_predictions(train_data=envbo_experiment,
+                             env_dims=env_dims,
+                             env_values=env_values,
+                             bounds=bounds,
+                             num_starts=20,
+                             num_samples=500)
     wt_x = wt[0, :N_WT].reshape(N_WT)
     wt_y = wt[0, N_WT:2*N_WT].reshape(N_WT)
     res, site, wind_turbines = simulate(wt_x, wt_y, wd=wd, ws=ws)
@@ -185,8 +185,8 @@ for i, wd in enumerate(wds):
         [wt.reshape(-1), np.array([res.aep().sum().values])]
         )
 
-    np.savetxt(f"envbo_long_results_WT{N_WT}.txt",
-               envbo_results,
-               header="X1,X2,X3,X4,Y1,Y2,Y3,Y4,WD,WS,AEP",
-               delimiter=",",
-               comments="")
+np.savetxt(f"wind-farm-simulator/results/envbo_long_results_WT{N_WT}.txt",
+            envbo_results,
+            header="X1,X2,X3,X4,Y1,Y2,Y3,Y4,WD,WS,AEP",
+            delimiter=",",
+            comments="")

@@ -3,7 +3,7 @@ import numpy as np
 from nubo.acquisition import ExpectedImprovement
 from nubo.models import GaussianProcess, fit_gp
 from gpytorch.likelihoods import GaussianLikelihood
-from helper import cond_optim
+from nubo.algorithms import _cond_optim
 from nubo.utils import normalise, unnormalise
 from scipy.spatial.distance import pdist
 from windfarm_simulator import SPACING, simulate_aep
@@ -71,13 +71,13 @@ def step(x_train: torch.Tensor,
     cons = ({"type": "ineq", "fun": lambda x: check_distance(x, bounds, SPACING)},)
 
     # Optimise acquisition function conditional on dynamic parameter
-    x_new, _ = cond_optim(func=acq,
-                          env_dims=env_dims,
-                          env_values=env_values,
-                          bounds=torch.tensor([[0,]*dims, [1,]*dims]),
-                          constraints=cons,
-                          num_starts=num_starts,
-                          num_samples=num_samples,)
+    x_new, _ = _cond_optim(func=acq,
+                           env_dims=env_dims,
+                           env_values=env_values,
+                           bounds=torch.tensor([[0,]*dims, [1,]*dims]),
+                           constraints=cons,
+                           num_starts=num_starts,
+                           num_samples=num_samples,)
 
     return x_new
 

@@ -1,10 +1,10 @@
 import torch
+import numpy as np
 from torch import Tensor
 from scipy.optimize import minimize
 from typing import Tuple, Optional, Callable, List, Any 
 from scipy.spatial.distance import pdist
 from windfarm_simulator import simulate_aep, SPACING
-from helper import gen_candidates
 
 
 def slsqp(func: Callable,
@@ -29,9 +29,9 @@ def slsqp(func: Callable,
 
     Returns
     -------
-    result : ``torch.Tensor``
+    x : ``torch.Tensor``
         (size 1 x d) Minimiser inputs.
-    func_result : ``torch.Tensor``
+    f : ``torch.Tensor``
         (size 1) Minimiser output.
     evals : int
         Number of function evaluations used by SLSQP.
@@ -40,21 +40,21 @@ def slsqp(func: Callable,
     opt_bounds = bounds.numpy().T
     
     # Generate initial starting point
-    x0 = gen_candidates(func, bounds, 1, 1)
+    x0 = np.random.uniform(bounds[0, :], bounds[1, :], (10,))
 
     # Optimise
     result = minimize(func,
-                        x0=x0.numpy(),
-                        method="SLSQP",
-                        bounds=opt_bounds,
-                        constraints=constraints,
-                        **kwargs)
+                      x0=x0,
+                      method="SLSQP",
+                      bounds=opt_bounds,
+                      constraints=constraints,
+                      **kwargs)
 
-    result = torch.from_numpy(result["x"].reshape(1, -1))
-    func_result = torch.from_numpy(result["fun"])
-    evals = int(result["nfev"])
+    x = torch.from_numpy(result["x"].reshape(1, -1))
+    f = np.array(result["fun"])
+    evals = np.array(result["nfev"])
 
-    return result, func_result, evals
+    return x, f, evals
 
 
 def cond_slsqp(func: Callable,
@@ -62,8 +62,6 @@ def cond_slsqp(func: Callable,
                env_values: float | List[float],
                bounds: Tensor,
                constraints: Optional[dict | Tuple[dict]]=(),
-               num_samples: Optional[int]=100,
-               num_starts: Optional[int]=10,
                **kwargs: Any) -> Tuple[Tensor, Tensor, int]:
     """
     Conditional optimisation for environmental conditions. Holds envrionmental
@@ -81,10 +79,6 @@ def cond_slsqp(func: Callable,
         (size 2 x d) Optimisation bounds of input space.
     constraints : ``dict`` or ``Tuple`` of ``dict``
         Optimisation constraints.
-    num_starts : ``int``, optional
-        Number of start for multi-start optimisation, default is 10.
-    num_samples : ``int``, optional
-        Number of samples from which to draw the starts, default is 100.
     **kwargs : ``Any``
         Keyword argument passed to ``scipy.optimize.minimize``.
 
@@ -128,8 +122,6 @@ def cond_slsqp(func: Callable,
     results, func_result, evals = slsqp(func=func,
                                         bounds=bounds,
                                         constraints=constraints,
-                                        num_starts=num_starts,
-                                        num_samples=num_samples,
                                         **kwargs)
     
     return results, func_result, evals

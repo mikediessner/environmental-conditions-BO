@@ -10,8 +10,9 @@ from scipy.stats import binned_statistic
 # Plot properties
 plt.rcParams.update({"font.size": 9, "font.family": "sans-serif", "font.sans-serif": "Arial"})
 
-# Directory of results
-DIR = "wind-farm-simulator/results/"
+# Directories
+LOAD_DIR = "wind-farm-simulator/results/"
+FIG_DIR = "wind-farm-simulator/figures/"
 
 # Parameters
 N_WT = 4                  # Number of wind turbines
@@ -35,7 +36,7 @@ wind_turbines = V80()
 wf_model = Bastankhah_PorteAgel_2014(site, wind_turbines, groundModel=None)
 
 # Load wind turbine positions for wake plots
-envbo_results = np.loadtxt(f"{DIR}envbo_results_WT{N_WT}.txt", 
+envbo_results = np.loadtxt(f"{LOAD_DIR}envbo_results_WT{N_WT}.txt", 
                             delimiter=",",
                             skiprows=1)
 wt_x = envbo_results[2, :N_WT].reshape(N_WT)
@@ -77,12 +78,14 @@ for i, wd in enumerate([0, 120]):
     axs[i+2].set_aspect('auto')
     axs[i+2].set_xlim(MIN_X, MAX_X)
     axs[i+2].set_title(f"Wind direction = {wd} degrees, wind speed = {WS} m/s")
+    axs[i+2].get_legend().remove()
+
 
 # Save plot
 plt.tight_layout()
 fig.set_rasterized(True)
-plt.savefig(f"Figure7.png")
-plt.savefig(f"Figure7.eps", format="eps")
+plt.savefig(f"{FIG_DIR}Figure7.png")
+plt.savefig(f"{FIG_DIR}Figure7.eps", format="eps")
 plt.clf()
 
 
@@ -91,20 +94,20 @@ plt.clf()
 ##############
 
 # Load results
-envbo_results = np.loadtxt(f"{DIR}envbo_results_WT{N_WT}.txt",
+envbo_results = np.loadtxt(f"{LOAD_DIR}envbo_results_WT{N_WT}.txt",
                            delimiter=",",
                            skiprows=1)
-slsqp_results = np.loadtxt(f"{DIR}slsqp_results_WT{N_WT}.txt",
+slsqp_results = np.loadtxt(f"{LOAD_DIR}slsqp_results_WT{N_WT}.txt",
                            delimiter=",",
                            skiprows=1)
-bo_results = np.loadtxt(f"{DIR}bo_results_WT{N_WT}.txt",
+bo_results = np.loadtxt(f"{LOAD_DIR}bo_results_WT{N_WT}.txt",
                         delimiter=",",
                         skiprows=1)
 
 # Site
 site = ParqueFicticioSite()
 
-fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(9.0, 11.7*0.5))
+fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(9.0, 11.7*0.6))
 axs = axs.ravel()
 
 # Resolution of contour plots
@@ -134,9 +137,9 @@ for i, wd in enumerate(WDS):
     plt.colorbar(c, label='Local wind speed [m/s]', ax=axs[i], format="{x:.2f}")
 
     # Plot wind turbines
-    axs[i].plot(envbo_x, envbo_y, label="ENVBO", c="red", linestyle="", marker="o")
-    axs[i].plot(slsqp_x, slsqp_y, label="SLSQP", c="black", linestyle="", marker="o")
-    axs[i].plot(bo_x, bo_y, label="BO", c="white", linestyle="", marker="o")
+    axs[i].plot(envbo_x, envbo_y, label="ENVBO", c="red", linestyle="", marker="x")
+    axs[i].plot(slsqp_x, slsqp_y, label="SLSQP", c="black", linestyle="", marker="x")
+    axs[i].plot(bo_x, bo_y, label="BO", c="white", linestyle="", marker="x")
 
     # Plot constraints
     for k in range(N_WT):
@@ -156,8 +159,8 @@ for i, wd in enumerate(WDS):
 # Save plot
 plt.tight_layout()
 fig.set_rasterized(True)
-plt.savefig("Figure8.png")
-plt.savefig("Figure8.eps", format="eps")
+plt.savefig(f"{FIG_DIR}Figure8.png")
+plt.savefig(f"{FIG_DIR}Figure8.eps", format="eps")
 plt.clf()
 
 
@@ -166,16 +169,16 @@ plt.clf()
 ##############
 
 # Load results
-envbo_results = np.loadtxt(f"{DIR}envbo_long_results_WT{N_WT}.txt",
+envbo_results = np.loadtxt(f"{LOAD_DIR}envbo_long_results_WT{N_WT}.txt",
                            delimiter=",",
                            skiprows=1)
-slsqp_results = np.loadtxt(f"{DIR}slsqp_results_WT{N_WT}.txt",
+slsqp_results = np.loadtxt(f"{LOAD_DIR}slsqp_results_WT{N_WT}.txt",
                            delimiter=",",
                            skiprows=1)
-bo_results = np.loadtxt(f"{DIR}bo_results_WT{N_WT}.txt",
+bo_results = np.loadtxt(f"{LOAD_DIR}bo_results_WT{N_WT}.txt",
                         delimiter=",",
                         skiprows=1)
-envbo_experiment = np.loadtxt(f"{DIR}envbo_experiment_WT{N_WT}.txt",
+envbo_experiment = np.loadtxt(f"{LOAD_DIR}envbo_experiment_WT{N_WT}.txt",
                               delimiter=",",
                               skiprows=1)
 
@@ -192,12 +195,12 @@ bo_aep = bo_results[:, -2].reshape(-1)
 bo_evals = bo_results[:, -1].reshape(-1)
 bo_evals = np.repeat(WDS, bo_evals.astype(int))
 
-# # Compute counts for wind speed bins
-# envbo_bins = binned_statistic(envbo_random_walk, envbo_random_walk, bins=20)[2]
-# unique, counts = np.unique(envbo_bins, return_counts=True)
-# print(dict(zip(unique, counts)))
-# print(slsqp_results[:, -1].reshape(-1))
-# print(bo_results[:, -1].reshape(-1))
+# Compute counts for wind speed bins
+envbo_bins = binned_statistic(envbo_random_walk, envbo_random_walk, bins=20)[2]
+unique, counts = np.unique(envbo_bins, return_counts=True)
+print(dict(zip(unique, counts)))
+print(slsqp_results[:, -1].reshape(-1))
+print(bo_results[:, -1].reshape(-1))
 
 fig, ax = plt.subplots(nrows=2, ncols=1)
 
@@ -219,6 +222,6 @@ ax[1].legend(ncols=3)
 # Save plot
 plt.tight_layout()
 fig.set_rasterized(True)
-plt.savefig("Figure9.png")
-plt.savefig("Figure9.eps", format="eps")
+plt.savefig(f"{FIG_DIR}Figure9.png")
+plt.savefig(f"{FIG_DIR}Figure9.eps", format="eps")
 plt.clf()
