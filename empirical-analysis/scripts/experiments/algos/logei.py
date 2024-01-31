@@ -11,7 +11,7 @@ def logei(func, noise, bounds, env_dims, num_starts, num_samples, evals, runs, s
     # paths
     data_dir = f"empirical-analysis/results/{name}/"
     plot_dir = "empirical-analysis/plots/"
-    filename = f"logei"
+    filename = f"logei-{name}"
 
     # check if directory exists and create
     if not os.path.isdir(data_dir):

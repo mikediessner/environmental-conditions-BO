@@ -36,7 +36,7 @@ def envbo_experiment(func, noise, bounds, random_walk, env_dims, num_starts, num
     with open(f"{filename}_params_run{run+1}.txt", "w") as convert_file:
         convert_file.write(json.dumps(params, indent=4))
 
-
+   
     # Bayesian optimisation loop
     for iter in range(evals-1):
 
@@ -46,7 +46,7 @@ def envbo_experiment(func, noise, bounds, random_walk, env_dims, num_starts, num
                                 stepsize=stepsize,
                                 random_walk=random_walk[iter, :],
                                 env_dims=env_dims)
-        
+
         # compute next candidate point
         x_new = envbo(x_train=x_train,
                       y_train=y_train,
