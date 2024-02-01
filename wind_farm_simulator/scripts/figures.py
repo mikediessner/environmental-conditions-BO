@@ -24,7 +24,7 @@ WDS = [90, 105, 120, 135] # Wind directions to benchmark
 
 
 ##############
-## Figure 7 ##
+## Figure 8 ##
 ##############
 
 fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(8.3, 11.7*0.5))
@@ -84,13 +84,13 @@ for i, wd in enumerate([0, 120]):
 # Save plot
 plt.tight_layout()
 fig.set_rasterized(True)
-plt.savefig(f"{FIG_DIR}Figure7.png")
-plt.savefig(f"{FIG_DIR}Figure7.eps", format="eps")
+plt.savefig(f"{FIG_DIR}Figure8.png")
+plt.savefig(f"{FIG_DIR}Figure8.eps", format="eps")
 plt.clf()
 
 
 ##############
-## Figure 8 ##
+## Figure 9 ##
 ##############
 
 # Load results
@@ -159,14 +159,14 @@ for i, wd in enumerate(WDS):
 # Save plot
 plt.tight_layout()
 fig.set_rasterized(True)
-plt.savefig(f"{FIG_DIR}Figure8.png")
-plt.savefig(f"{FIG_DIR}Figure8.eps", format="eps")
+plt.savefig(f"{FIG_DIR}Figure9.png")
+plt.savefig(f"{FIG_DIR}Figure9.eps", format="eps")
 plt.clf()
 
 
-##############
-## Figure 9 ##
-##############
+###############
+## Figure 10 ##
+###############
 
 # Load results
 envbo_results = np.loadtxt(f"{LOAD_DIR}envbo_long_results_WT{N_WT}.txt",
@@ -222,6 +222,6 @@ ax[1].legend(ncols=3)
 # Save plot
 plt.tight_layout()
 fig.set_rasterized(True)
-plt.savefig(f"{FIG_DIR}Figure9.png")
-plt.savefig(f"{FIG_DIR}Figure9.eps", format="eps")
+plt.savefig(f"{FIG_DIR}Figure10.png")
+plt.savefig(f"{FIG_DIR}Figure10.eps", format="eps")
 plt.clf()
