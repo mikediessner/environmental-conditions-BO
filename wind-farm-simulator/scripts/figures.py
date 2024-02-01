@@ -111,9 +111,9 @@ fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(9.0, 11.7*0.6))
 axs = axs.ravel()
 
 # Resolution of contour plots
-x = np.linspace(MIN_X, MAX_X, 50)
-y = np.linspace(MIN_Y, MAX_Y, 50)
-X,Y = np.meshgrid(x, y)
+x = np.linspace(MIN_X, MAX_X, 100)
+y = np.linspace(MIN_Y, MAX_Y, 100)
+X, Y = np.meshgrid(x, y)
 
 for i, wd in enumerate(WDS):
 
