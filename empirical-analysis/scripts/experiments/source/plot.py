@@ -81,12 +81,3 @@ def make_plot(mapes, filename):
     plt.savefig(f"{filename}.png", dpi=1000)
     # plt.savefig(f"{filename}.eps", format="eps")
     plt.clf()
-
-
-def final_mape(filepath, runs):
-    mapes = []
-    for run in range(runs):
-        mape = np.loadtxt(f"{filepath}_mape_run{run+1}.csv", skiprows=1, delimiter=",")[-1, 1]
-        mapes.append(mape)
-    
-    return np.array(mapes).reshape((-1, 1))

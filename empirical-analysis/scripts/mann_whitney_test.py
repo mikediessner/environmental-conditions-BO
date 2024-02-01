@@ -1,5 +1,5 @@
+import numpy as np
 from scipy.stats import mannwhitneyu
-from source.plot import final_mae
 
 
 def test(data1, data2):
@@ -7,14 +7,23 @@ def test(data1, data2):
     return f"Statistics={stat:.3f}, p={p:.3f}"
 
 
+def final_mape(filepath, runs):
+    mapes = []
+    for run in range(runs):
+        mape = np.loadtxt(f"{filepath}_mape_run{run+1}.csv", skiprows=1, delimiter=",")[-1, 1]
+        mapes.append(mape)
+    
+    return np.array(mapes).reshape((-1, 1))
+
+
 ##########
 ## Levy ##
 ##########
 
-bm = final_mae("data/levy/benchmark/benchmark-levy", 30).reshape((-1,))
-ei = final_mae("data/levy/ei/ei-levy", 30).reshape((-1,))
-logei = final_mae("data/levy/logei/logei-levy", 30).reshape((-1,))
-ucb = final_mae("data/levy/ucb-8/ucb-8-levy", 30).reshape((-1,))
+bm = final_mape("empirical-analysis/results/levy_benchmark/levy_benchmark", 30).reshape((-1,))
+ei = final_mape("empirical-analysis/results/levy_ei/levy_ei", 30).reshape((-1,))
+logei = final_mape("empirical-analysis/results/levy_logei/levy_logei", 30).reshape((-1,))
+ucb = final_mape("empirical-analysis/results/levy_ucb8/levy_ucb8", 30).reshape((-1,))
 
 print("LEVY")
 print("====")
@@ -27,10 +36,10 @@ print("UCB: ", test(bm, ucb))
 ## Hartmann ##
 ##############
 
-bm = final_mae("data/hartmann/benchmark/benchmark-hartmann", 30).reshape((-1,))
-ei = final_mae("data/hartmann/ei/ei-hartmann", 30).reshape((-1,))
-logei = final_mae("data/hartmann/logei/logei-hartmann", 30).reshape((-1,))
-ucb = final_mae("data/hartmann/ucb-8/ucb-8-hartmann", 30).reshape((-1,))
+bm = final_mape("empirical-analysis/results/hartmann_benchmark/hartmann_benchmark", 30).reshape((-1,))
+ei = final_mape("empirical-analysis/results/hartmann_ei/hartmann_ei", 30).reshape((-1,))
+logei = final_mape("empirical-analysis/results/hartmann_logei/hartmann_logei", 30).reshape((-1,))
+ucb = final_mape("empirical-analysis/results/hartmann_ucb8/hartmann_ucb8", 30).reshape((-1,))
 
 print("HARTMANN")
 print("========")
