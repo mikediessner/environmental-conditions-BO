@@ -23,24 +23,24 @@ start_str = "hartmann"
 walk_str = "1d"
 
 
-# comparison
-bm(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, f"{name}_benchmark", start_str, walk_str)
-print("Benchmark done.")
+# # comparison
+# bm(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, name, start_str, walk_str)
+# print("Benchmark done.")
 
-ei(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, f"{name}_ei", start_str, walk_str)
-print("Expected improvement done.")
+# ei(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, name, start_str, walk_str)
+# print("Expected improvement done.")
 
-logei(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, f"{name}_logei", start_str, walk_str)
-print("Log expected improvement done.")
+# logei(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, name, start_str, walk_str)
+# print("Log expected improvement done.")
 
-ucb(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, f"{name}_ucb8", start_str, walk_str, 8)
-print("Upper confidence bound beta=8 done.")
+# ucb(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, name, start_str, walk_str, 4)
+# print("Upper confidence bound beta=4 done.")
 
-ucb(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, f"{name}_ucb4", start_str, walk_str, 4)
-print("Upper confidence bound beta=4 done.")
+# ucb(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, name, start_str, walk_str, 8)
+# print("Upper confidence bound beta=8 done.")
 
-ucb(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, f"{name}_ucb16", start_str, walk_str, 16)
-print("Upper confidence bound beta=16 done.")
+# ucb(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, name, start_str, walk_str, 16)
+# print("Upper confidence bound beta=16 done.")
 
 
 # # noise
@@ -62,23 +62,23 @@ print("Upper confidence bound beta=16 done.")
 # print("3 environmental conditions done.")
 
 
-# # fluctuation
-# ei(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, [0.1], num_tests, eval_stepsize, cores, f"{name}_stepsize_0.1", start_str, walk_str)
-# print("Fluctuation 0.1 done.")
+# fluctuation
+ei(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, [0.1], num_tests, eval_stepsize, cores, f"{name}_stepsize_0.1", start_str, walk_str)
+print("Fluctuation 0.1 done.")
 
-# ei(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, [0.25], num_tests, eval_stepsize, cores, f"{name}_stepsize_0.25", start_str, walk_str)
-# print("Fluctuation 0.25 done.")
+ei(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, [0.25], num_tests, eval_stepsize, cores, f"{name}_stepsize_0.25", start_str, walk_str)
+print("Fluctuation 0.25 done.")
 
-# ei(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, [0.5], num_tests, eval_stepsize, cores, f"{name}_stepsize_0.5", start_str, walk_str)
-# print("Fluctuation 0.5 done.")
+ei(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, [0.5], num_tests, eval_stepsize, cores, f"{name}_stepsize_0.5", start_str, walk_str)
+print("Fluctuation 0.5 done.")
 
-# ei(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, [1.0], num_tests, eval_stepsize, cores, f"{name}_stepsize_1.0", start_str, walk_str)
-# print("Fluctuation 1.0 done.")
+ei(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, [1.0], num_tests, eval_stepsize, cores, f"{name}_stepsize_1.0", start_str, walk_str)
+print("Fluctuation 1.0 done.")
 
 
-# # parameter variability
-# ei(func, noise, bounds, [2], num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, f"{name}_variability_low", start_str, walk_str)
-# print("Low variability done.")
+# parameter variability
+ei(func, noise, bounds, [2], num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, f"{name}_variability_low", start_str, walk_str)
+print("Low variability done.")
 
-# ei(func, noise, bounds, [0], num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, f"{name}_variability_high", start_str, walk_str)
-# print("High variability done.")
+ei(func, noise, bounds, [0], num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, f"{name}_variability_high", start_str, walk_str)
+print("High variability done.")

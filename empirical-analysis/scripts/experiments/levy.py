@@ -26,20 +26,20 @@ walk_str = "1d"
 
 
 # comparison
-bm(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, f"{name}_benchmark", start_str, walk_str)
+bm(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, name, start_str, walk_str)
 print("Benchmark done.")
 
-ei(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, f"{name}_ei", start_str, walk_str)
+ei(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, name, start_str, walk_str)
 print("Expected improvement done.")
 
-logei(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, f"{name}_ucb4", start_str, walk_str)
+logei(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, name, start_str, walk_str)
 print("Log expected improvement done.")
 
-ucb(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, f"{name}_ucb8", start_str, walk_str, 4)
-print("Upper confidence bound done.")
+ucb(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, name, start_str, walk_str, 4)
+print("Upper confidence bound beta=4 done.")
 
-ucb(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, f"{name}_logei", start_str, walk_str, 8)
-print("Upper confidence bound done.")
+ucb(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, name, start_str, walk_str, 8)
+print("Upper confidence bound beta=8 done.")
 
-ucb(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, f"{name}_ucb16", start_str, walk_str, 16)
-print("Upper confidence bound done.")
+ucb(func, noise, bounds, dynamic_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, name, start_str, walk_str, 16)
+print("Upper confidence bound beta=16 done.")

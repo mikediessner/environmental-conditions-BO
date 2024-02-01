@@ -9,9 +9,9 @@ from joblib import Parallel, delayed
 
 def bm(func, noise, bounds, env_dims, num_starts, num_samples, evals, runs, stepsize, num_tests, eval_stepsize, cores, name, start_str, walk_str):
     # paths
-    data_dir = f"empirical-analysis/results/{name}/"
+    data_dir = f"empirical-analysis/results/{name}_benchmark/"
     plot_dir = "empirical-analysis/plots/"
-    filename = f"benchmark-{name}"
+    filename = f"{name}_benchmark"
 
     # check if directory exists and create
     if not os.path.isdir(data_dir):
