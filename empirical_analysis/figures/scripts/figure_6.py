@@ -12,7 +12,7 @@ fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(8.3, 11.7*0.5))
 evals = 100
 eval_stepsize = 10
 runs = 30
-ylim = 4
+ylim = 1.25
 
 # results directory
 DIR = "empirical_analysis/results"
@@ -26,16 +26,16 @@ basic_mapes = aggregate_mape(runs, f"{DIR}/hartmann_ei/hartmann_ei")
 
 # compute mean absolute error
 for run in range(runs):
-    give_scores(evals, eval_stepsize, run, f"{DIR}/hartmann_noisy_0.025_ei/hartmann_hartmann_noisy_0.025_ei")
+    give_scores(evals, eval_stepsize, run, f"{DIR}/hartmann_noisy_0.025_ei/hartmann_noisy_0.025_ei")
 for run in range(runs):
-    give_scores(evals, eval_stepsize, run, f"{DIR}/hartmann_noisy_0.05_ei/hartmann_hartmann_noisy_0.05_ei")
+    give_scores(evals, eval_stepsize, run, f"{DIR}/hartmann_noisy_0.05_ei/hartmann_noisy_0.05_ei")
 for run in range(runs):
-    give_scores(evals, eval_stepsize, run, f"{DIR}/hartmann_noisy_0.1_ei/hartmann_hartmann_noisy_0.1_ei")
+    give_scores(evals, eval_stepsize, run, f"{DIR}/hartmann_noisy_0.1_ei/hartmann_noisy_0.1_ei")
 
 # compute average and standard deviation of mean absolute error over all runs
-low_mapes = aggregate_mape(runs, f"{DIR}/hartmann_noisy_0.025_ei/hartmann_hartmann_noisy_0.025_ei")
-medium_mapes = aggregate_mape(runs, f"{DIR}/hartmann_noisy_0.05_ei/hartmann_hartmann_noisy_0.05_ei")
-high_mapes = aggregate_mape(runs, f"{DIR}/hartmann_noisy_0.1_ei/hartmann_hartmann_noisy_0.1_ei")
+low_mapes = aggregate_mape(runs, f"{DIR}/hartmann_noisy_0.025_ei/hartmann_noisy_0.025_ei")
+medium_mapes = aggregate_mape(runs, f"{DIR}/hartmann_noisy_0.05_ei/hartmann_noisy_0.05_ei")
+high_mapes = aggregate_mape(runs, f"{DIR}/hartmann_noisy_0.1_ei/hartmann_noisy_0.1_ei")
 
 # plot
 axs[0, 0].plot(basic_mapes[:, 0], basic_mapes[:, 1], label=f"$\sigma = 0.000$", zorder=8)
