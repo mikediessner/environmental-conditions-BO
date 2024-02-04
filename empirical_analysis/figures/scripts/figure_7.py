@@ -66,7 +66,7 @@ runs = 30
 
 directories = [f"{DIR}/hartmann_ei/", f"{DIR}/hartmann_multi_2_ei/", f"{DIR}/hartmann_multi_3_ei/"]
 filenames = ["hartmann_ei", "hartmann_multi_2_ei","hartmann_multi_3_ei"]
-labels = [f"$n_d = 1$", f"$n_d = 2$", f"$n_d = 3$"]
+labels = [f"$n_E = 1$", f"$n_E = 2$", f"$n_E = 3$"]
 n = len(labels)
 
 all_mapes = np.zeros((runs*n, steps))

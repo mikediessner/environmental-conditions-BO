@@ -218,6 +218,7 @@ ax[1].hist(bo_evals, bins=20, color="tab:green", label="BO", zorder=1)
 ax[1].set_xlabel("Wind direction [in degrees]")
 ax[1].set_ylabel("Evaluations")
 ax[1].legend(ncols=3)
+ax[1].set_ylim(0, 400)
 
 # Save plot
 plt.tight_layout()

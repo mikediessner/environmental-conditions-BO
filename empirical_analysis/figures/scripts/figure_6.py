@@ -68,11 +68,11 @@ two_mapes = aggregate_mape(runs, f"{DIR}/hartmann_multi_2_ei/hartmann_multi_2_ei
 three_mapes = aggregate_mape(runs, f"{DIR}/hartmann_multi_3_ei/hartmann_multi_3_ei")
 
 # plot
-axs[0, 1].plot(basic_mapes[:, 0], basic_mapes[:, 1], label=f"$n_d = 1$", zorder=6)
+axs[0, 1].plot(basic_mapes[:, 0], basic_mapes[:, 1], label=f"$n_E = 1$", zorder=6)
 axs[0, 1].fill_between(basic_mapes[:, 0], basic_mapes[:, 1]-1.96*basic_mapes[:, 2], basic_mapes[:, 1]+1.96*basic_mapes[:, 2], alpha=0.25, zorder=3)
-axs[0, 1].plot(two_mapes[:, 0], two_mapes[:, 1], label=f"$n_d = 2$", zorder=5)
+axs[0, 1].plot(two_mapes[:, 0], two_mapes[:, 1], label=f"$n_E = 2$", zorder=5)
 axs[0, 1].fill_between(two_mapes[:, 0], two_mapes[:, 1]-1.96*two_mapes[:, 2], two_mapes[:, 1]+1.96*two_mapes[:, 2], alpha=0.25, zorder=2)
-axs[0, 1].plot(three_mapes[:, 0], three_mapes[:, 1], label=f"$n_d = 3$", zorder=4)
+axs[0, 1].plot(three_mapes[:, 0], three_mapes[:, 1], label=f"$n_E = 3$", zorder=4)
 axs[0, 1].fill_between(three_mapes[:, 0], three_mapes[:, 1]-1.96*three_mapes[:, 2], three_mapes[:, 1]+1.96*three_mapes[:, 2], alpha=0.25, zorder=1)
 axs[0, 1].set_xlim(0, two_mapes[-1, 0])
 axs[0, 1].set_ylim(0, ylim)
