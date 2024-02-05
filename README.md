@@ -1,6 +1,6 @@
-# On the development and implementation of a Bayesian optimisation framework for expensive experiments and simulations with changing environmental conditions
-Data and code associated with paper "On the development and implementation of a
-Bayesian optimisation framework for expensive experiments and simulations with
+# On the development of a practical Bayesian optimisation algorithm for expensive experiments and simulations with changing environmental conditions
+Data and code associated with the paper "On the development of a practical
+Bayesian optimisation algorithm for expensive experiments and simulations with
 changing environmental conditions" currently in review.
 
 **Abstract:** Experiments in engineering are typically conducted in controlled
