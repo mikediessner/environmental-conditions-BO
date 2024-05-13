@@ -120,7 +120,7 @@
     "num_samples": 100,
     "evaluations": 100,
     "run": 26,
-    "filename": "empirical_analysis/results/levy_ucb4/levy_ucb4",
+    "filename": "empirical_analysis/results/levy_logei/levy_logei",
     "stepsize": [
         1.5
     ],
